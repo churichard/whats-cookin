@@ -33,20 +33,4 @@ public class SlidingPagerAdapter extends FragmentPagerAdapter {
     public String getPageTitle(int position) {
         return titles[position];
     }
-
-//    @Override
-//    public boolean onInterceptTouchEvent(MotionEvent ev) {
-//        if (inNeutralArea(ev.getX(), ev.getY())) {
-//            //--events re-directed to this ViewPager's onTouch() and to its child views from there--
-//            return false;
-//        } else {
-//            //--events intercepted by this ViewPager's default implementation, where it looks for swipe gestures--
-//            return super.onInterceptTouchEvent(ev);
-//        }
-//    }
-//
-//    private boolean inNeutralArea(float x, float y) {
-//        //--check if x,y inside non reactive area, return true/false accordingly--
-//        return false;
-//    }
 }

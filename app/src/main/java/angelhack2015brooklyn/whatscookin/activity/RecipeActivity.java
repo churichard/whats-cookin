@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import angelhack2015brooklyn.whatscookin.R;
 import angelhack2015brooklyn.whatscookin.adapter.SlidingPagerAdapter;
-import fr.castorflex.android.verticalviewpager.VerticalViewPager;
+import angelhack2015brooklyn.whatscookin.ui.view.SlidingViewPager;
 
 
 public class RecipeActivity extends Activity {
@@ -17,7 +17,8 @@ public class RecipeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        VerticalViewPager viewPager = (VerticalViewPager) findViewById(R.id.viewpager);
+        SlidingViewPager.recipeActivity = this;
+        SlidingViewPager viewPager = (SlidingViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new SlidingPagerAdapter(getFragmentManager()));
         viewPager.setCurrentItem(1);
     }

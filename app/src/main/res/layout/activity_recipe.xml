@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fr.castorflex.android.verticalviewpager.VerticalViewPager
+    <angelhack2015brooklyn.whatscookin.ui.view.SlidingViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

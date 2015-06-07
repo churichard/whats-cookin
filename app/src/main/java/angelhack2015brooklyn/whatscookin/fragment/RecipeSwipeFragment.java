@@ -2,7 +2,6 @@ package angelhack2015brooklyn.whatscookin.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +36,6 @@ public class RecipeSwipeFragment extends Fragment {
     private SwipeFlingAdapterView cardContainer;
     private CardAdapter cardStackAdapter;
     private List<Recipe> recipes;
-    private RecyclerView recyclerView;
     private int pageNum;
 
     @Override
@@ -50,8 +48,6 @@ public class RecipeSwipeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        recyclerView = (RecyclerView) recipeActivity.findViewById(R.id.recyclerview);
 
         cardContainer = (SwipeFlingAdapterView) recipeActivity.findViewById(R.id.card_container);
         recipes = new ArrayList<>();
@@ -125,11 +121,8 @@ public class RecipeSwipeFragment extends Fragment {
             @Override
             public void onRightCardExit(Object dataObject) {
                 if (swipedRecipe != null) {
-                    Log.d(TAG, "Yay");
                     AppData.getSavedRecipes().add(swipedRecipe);
                     AppData.getRecipeAdapter(recipeActivity, AppData.getSavedRecipes()).notifyDataSetChanged();
-                } else {
-                    Log.d(TAG, "Darn it man");
                 }
                 recipeActivity.findViewById(R.id.item_swipe_right_indicator).setAlpha(0);
             }
