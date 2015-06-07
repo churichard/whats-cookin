@@ -28,4 +28,5 @@ dependencies {
     compile 'com.lorentzos.swipecards:library:1.0.8@aar' // Swipe Cards
     compile 'com.github.bumptech.glide:glide:3.6.0' // Glide
     compile 'com.github.castorflex.verticalviewpager:library:19.0.1' // Vertical ViewPager
+    compile 'com.android.support:recyclerview-v7:22.2.0' // RecyclerView
 }

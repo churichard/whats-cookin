@@ -3,7 +3,7 @@
     android:layout_width="300dp"
     android:layout_height="310dp"
     android:layout_gravity="center"
-    android:background="#2196F3">
+    android:background="@color/primaryColor">
 
     <ImageView
         android:id="@+id/recipe_img"
