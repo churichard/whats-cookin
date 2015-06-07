@@ -11,6 +11,7 @@ import angelhack2015brooklyn.whatscookin.ui.view.SlidingViewPager;
 public class RecipeActivity extends Activity {
 
     private static final String TAG = RecipeActivity.class.getSimpleName();
+    SlidingViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +19,7 @@ public class RecipeActivity extends Activity {
         setContentView(R.layout.activity_recipe);
 
         SlidingViewPager.recipeActivity = this;
-        SlidingViewPager viewPager = (SlidingViewPager) findViewById(R.id.viewpager);
+        viewPager = (SlidingViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new SlidingPagerAdapter(getFragmentManager()));
         viewPager.setCurrentItem(1);
     }

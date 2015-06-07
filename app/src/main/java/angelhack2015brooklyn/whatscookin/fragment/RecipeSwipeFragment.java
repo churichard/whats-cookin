@@ -54,11 +54,6 @@ public class RecipeSwipeFragment extends Fragment {
         setupCardContainer(recipes);
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
     private void getRecipesNames(String url, int pageNum) {
         RequestQueue queue = AppData.getRequestQueue(recipeActivity);
         url += "&sort=t&page=" + pageNum;
