@@ -20,7 +20,17 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/listChef"
         android:layout_below="@id/saved_recipes_title"
         android:layout_marginBottom="20dp" />
+
+    <ImageView
+        android:id="@+id/listChef"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/chef"
+        android:contentDescription="@null" />
 
 </RelativeLayout>
