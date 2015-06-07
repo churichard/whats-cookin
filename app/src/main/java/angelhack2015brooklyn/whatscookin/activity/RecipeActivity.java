@@ -1,14 +1,11 @@
 package angelhack2015brooklyn.whatscookin.activity;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -17,7 +14,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.bumptech.glide.Glide;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import org.json.JSONArray;
@@ -25,9 +21,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
+import java.util.List;
 
 import angelhack2015brooklyn.whatscookin.R;
+import angelhack2015brooklyn.whatscookin.adapter.CardAdapter;
 import angelhack2015brooklyn.whatscookin.data.constants.AppData;
 import angelhack2015brooklyn.whatscookin.data.model.Recipe;
 
@@ -36,10 +33,9 @@ public class RecipeActivity extends Activity {
 
     private static final String TAG = RecipeActivity.class.getSimpleName();
     private static final int TIMEOUT_MS = 10000;
-    private Recipe[] recipes;
     private SwipeFlingAdapterView cardContainer;
-    private ArrayAdapter<String> cardStackAdapter;
-    private ArrayList<String> recipeTitles;
+    private CardAdapter cardStackAdapter;
+    private List<Recipe> recipes;
     private int pageNum;
 
     @Override
@@ -48,8 +44,8 @@ public class RecipeActivity extends Activity {
         setContentView(R.layout.activity_recipe);
 
         cardContainer = (SwipeFlingAdapterView) findViewById(R.id.card_container);
-        recipeTitles = new ArrayList<>();
-        setupCardContainer(recipeTitles);
+        recipes = new ArrayList<>();
+        setupCardContainer(recipes);
     }
 
     @Override
@@ -83,13 +79,9 @@ public class RecipeActivity extends Activity {
                             JSONArray jsArray = jsonObj.getJSONArray("recipes");
                             int count = jsonObj.getInt("count");
 
-                            recipes = new Recipe[count];
-
+                            // Populate recipes and card stack
                             for (int i = 0; i < count; i++) {
-                                // Populate recipes and card stack
-                                recipes[i] = new Recipe((JSONObject) jsArray.get(i));
-                                recipeTitles.add(recipes[i].getTitle());
-//                                new GetBitmapAsyncTask().execute(recipes[i]);
+                                recipes.add(new Recipe((JSONObject) jsArray.get(i)));
                             }
 
                             cardStackAdapter.notifyDataSetChanged();
@@ -113,9 +105,9 @@ public class RecipeActivity extends Activity {
         queue.add(request);
     }
 
-    private void setupCardContainer(final ArrayList<String> items) {
+    private void setupCardContainer(final List<Recipe> items) {
         pageNum = 1;
-        cardStackAdapter = new ArrayAdapter<>(RecipeActivity.this, R.layout.list_card_item, R.id.recipe_title, items);
+        cardStackAdapter = new CardAdapter(RecipeActivity.this, R.layout.list_card_item, items);
         cardContainer.setAdapter(cardStackAdapter);
 
         cardContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
@@ -149,45 +141,5 @@ public class RecipeActivity extends Activity {
                 view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
             }
         });
-    }
-
-    private class GetBitmapAsyncTask extends AsyncTask<Recipe, Void, Bitmap> {
-        private Recipe recipe;
-
-        @Override
-        protected Bitmap doInBackground(Recipe... params) {
-            try {
-                recipe = params[0];
-                return Glide.with(RecipeActivity.this)
-                        .load(recipe.getImgUrl())
-                        .asBitmap()
-                        .into(-1, -1)
-                        .get();
-            } catch (ExecutionException | InterruptedException e) {
-                Log.e(TAG, e.toString(), e);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-//            BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
-//            CardModel card = new CardModel(recipe.getTitle(), "", bitmapDrawable);
-//
-//            card.setOnCardDimissedListener(new CardModel.OnCardDimissedListener() {
-//                @Override
-//                public void onLike() {
-//                    textView.setText("I like it!!");
-//                }
-//
-//                @Override
-//                public void onDislike() {
-//                    textView.setText("I don't like it!!");
-//                }
-//            });
-//
-//            cardStackAdapter.add(card);
-//            mCardContainer.setAdapter(cardStackAdapter);
-        }
     }
 }
